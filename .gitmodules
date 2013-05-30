@@ -1,0 +1,12 @@
+[submodule ".emacs.d/rails-minor-mode"]
+	path = rails-minor-mode
+	url = git://github.com/remvee/emacs-rails.git
+[submodule ".emacs.d/feature-mode"]
+	path = feature-mode
+	url = git://github.com/michaelklishin/cucumber.el.git
+[submodule ".emacs.d/haml-mode"]
+	path = haml-mode
+	url = git://github.com/nex3/haml-mode.git
+[submodule ".emacs.d/yasnippet"]
+	path = yasnippet
+	url = https://github.com/capitaomorte/yasnippet
