@@ -3,3 +3,7 @@
 *#*
 *~
 *.#
+
+# autocomplete generated files #
+################################
+ac-comphist.dat

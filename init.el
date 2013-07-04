@@ -51,7 +51,7 @@
 						     objc-mode       latex-mode
 						     html-mode       css-mode
 						     plain-tex-mode))
-		(let ((mark-even-if-inactive transient-mark-mode)a
+		(let ((mark-even-if-inactive transient-mark-mode))
 		  (indent-region (region-beginning) (region-end) nil))))))
 
 ;; splitting windows
@@ -71,7 +71,12 @@
 (set-default-font "-unknown-Ubuntu Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") ;; setting the default font to ubuntu mono
 
 ;; loading the emacs load path from where the extension libraries are loaded
-(add-to-list 'load-path (expand-file-name "./"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
+
+
+;;To add a directory to the 'load-path' the current directory has to be temporarily changed by binding 'default-directory'. To recursively add the sub-directories of the current directory to the end of the 'load-path' do this:
+(let ((default-directory "~/.emacs.d/plugins/"))
+   (normal-top-level-add-subdirs-to-load-path))
 
 ;; color-themes
 (require 'color-theme)
@@ -81,6 +86,11 @@
 ;; golden-ratio
 (require 'golden-ratio)
 (global-set-key (kbd "<f8>") 'golden-ratio)
+
+;; auto-suggestions as we type
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories (expand-file-name "~/.emacs.d/ac-dict"))
+(ac-config-default)
 
 ;; simulating the electric-pair-mode, auto parenthesis
 (require 'autopair)
@@ -98,8 +108,105 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-agenda-files (file-expand-wildcards "~/.org/*.org"))
 
+;; opens less style files in css mode
+(add-to-list 'auto-mode-alist '("\\.less" . css-mode))
+
 ;; opens markdown files in markdown mode
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
+;; for cucumber files
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/feature-mode"))
+;; optional configurations
+;; default language if .feature doesn't have "# language: fi"
+(setq feature-default-language "en")
+;; point to cucumber languages.yml or gherkin i18n.yml to use
+;; exactly the same localization your cucumber uses
+(setq feature-default-i18n-file (expand-file-name "~/.emacs.d/plugins/gherkin/feature-mode/i18n.yml"))
+;; and load feature-mode
+(require 'feature-mode)
+(add-to-list 'auto-mode-alist '("\\.feature" . feature-mode))
+(add-hook 'feature-mode-hook 'flyspell-mode)
+
+;; for loading rails minor mode
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/rails-minor-mode"))
+(require 'rails)
+
+;; opens rake files in ruby mode
+(add-to-list 'auto-mode-alist '("\\.rake" . ruby-mode))
+;; opens rackup files in ruby mode
+(add-to-list 'auto-mode-alist '("\\.ru" . ruby-mode))
+
+;; for html erb mode
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/rhtml-minor-mode"))
+(require 'rhtml-mode)
+
+;; for haml mode
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/haml-mode"))
+(require 'haml-mode)
+(add-to-list 'auto-mode-alist '("\\.haml" . haml-mode))
+;; sets tabs to spaces for haml files
+(add-hook 'haml-mode-hook
+	  '(lambda ()
+	     (setq indent-tabs-mode nil)
+	     (define-key haml-mode-map "\C-m" 'newline-and-indent)))
+
+;; for scala mode
+;; (add-to-list 'load-path "~/.emacs.d/scala-mode")
+(require 'scala-mode-auto)
+
+;; for sbt mode
+;; (add-to-list 'load-path "~/.emacs.d/ensime/elisp")
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+;; for json mode
+;; (add-to-list 'load-path "~/.emacs.d/json-mode")
+(require 'json-mode)
+
+;; for nxhtml mode
+;; (load (expand-file-name "~/.emacs.d/nxhtml/autostart"))
+
+;; haskell mode configuration
+;; (setq auto-mode-alist
+;;       (append auto-mode-alist
+;;               '(("\\.[hg]s$"  . haskell-mode)
+;;                 ("\\.hic?$"   . haskell-mode)
+;;                 ("\\.hsc$"    . haskell-mode)
+;;                 ("\\.chs$"    . haskell-mode)
+;;                 ("\\.l[hg]s$" . literate-haskell-mode))))
+;; (autoload 'haskell-mode "haskell-mode"
+;;    "Major mode for editing Haskell scripts." t)
+;; (autoload 'literate-haskell-mode "haskell-mode"
+;;    "Major mode for editing literate Haskell scripts." t)
+
+;; ;adding the following lines according to which modules you want to use:
+;; (require 'inf-haskell)
+
+;; (add-hook 'haskell-mode-hook 'turn-on-font-lock)
+;; (add-hook 'haskell-mode-hook 'turn-off-haskell-decl-scan)
+;; (add-hook 'haskell-mode-hook 'turn-off-haskell-doc-mode)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-hugs)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
+;; (add-hook 'haskell-mode-hook 
+;;    (function
+;;     (lambda ()
+;;       (setq haskell-program-name "ghci")
+;;       (setq haskell-ghci-program-name "ghci6"))))
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40")
+ '(rails-ws:default-server-type "mongrel"))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
