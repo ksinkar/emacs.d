@@ -157,13 +157,17 @@
 (require 'scala-mode-auto)
 
 ;; for sbt mode
-;; (add-to-list 'load-path "~/.emacs.d/ensime/elisp")
+;; (add-to-list 'load-path "~/.emacs.d/plugins/ensime/elisp")
 (require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
 ;; for json mode
-;; (add-to-list 'load-path "~/.emacs.d/json-mode")
+;; (add-to-list 'load-path "~/.emacs.d/plugins/ecmascript/json-mode")
 (require 'json-mode)
+
+;; for nodejs repl
+;; (add-to-list 'load-path "~/.emacs.d/plugins/ecmascript/nodejs-repl")
+(require 'nodejs-repl)
 
 ;; for nxhtml mode
 ;; (load (expand-file-name "~/.emacs.d/nxhtml/autostart"))

@@ -16,3 +16,6 @@
 [submodule "plugins/ecmascript/json-mode"]
 	path = plugins/ecmascript/json-mode
 	url = git://github.com/joshwnj/json-mode.git
+[submodule "plugins/ecmascript/nodejs-repl"]
+	path = plugins/ecmascript/nodejs-repl
+	url = git@github.com:abicky/nodejs-repl.el.git
