@@ -29,12 +29,15 @@
 (global-set-key (kbd "C-<prior>") 'previous-buffer)		;; going to the previous buffer
 (global-set-key (kbd "C-<next>") 'next-buffer)			;; going to the next buffer
 (global-set-key (kbd "C-a") 'mark-whole-buffer)			;; Ctrl + a to select all
-(global-set-key (kbd "C-<tab>") 'other-window)			;; for moving cursor between split-windows
-(global-set-key (kbd "<backtab>") 'previous-multiframe-window)	;; for moving cursor to previous window
 (global-set-key (kbd "C-o") 'ido-find-file)			;; for opening a file
 (global-set-key (kbd "C-<f4>") 'kill-this-buffer)		;; for closing a tab (browser like behaviour)
 (global-set-key (kbd "M-f") 'menu-bar-open)			;; for opening the file menu
 (global-set-key (kbd "<f9>")  'ecb-minor-mode)			;; for opening the ecb (emacs code browser menu)
+;; navigating windows using arrow keys
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
 (setq x-select-enable-clipboard t)				;; enabling copying and pasting between applications
 
 ;; indentation
