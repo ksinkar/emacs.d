@@ -111,6 +111,9 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-agenda-files (file-expand-wildcards "~/.org/*.org"))
 
+;; find files recursively
+(require 'find-recursive)
+
 ;; opens less style files in css mode
 (add-to-list 'auto-mode-alist '("\\.less" . css-mode))
 
