@@ -171,6 +171,27 @@
 ;; (add-to-list 'load-path "~/.emacs.d/plugins/ecmascript/json-mode")
 (require 'json-mode)
 
+;; js2-mode
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;; for swank-js mode
+;; (global-set-key [f5] 'slime-js-reload)
+;; (add-hook 'js2-mode-hook
+;;           (lambda ()
+;;             (slime-js-minor-mode 1)))
+
+for javascript REPL
+(require 'js-comint)
+(setq inferior-js-program-command "/usr/bin/rhino")
+(add-hook 'js2-mode-hook '(lambda () 
+			    (local-set-key "\C-x\C-e" 'js-send-last-sexp)
+			    (local-set-key "\C-\M-x" 'js-send-last-sexp-and-go)
+			    (local-set-key "\C-cb" 'js-send-buffer)
+			    (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)
+			    (local-set-key "\C-cl" 'js-load-file-and-go)
+			    ))
+
 ;; for nodejs repl
 ;; (add-to-list 'load-path "~/.emacs.d/plugins/ecmascript/nodejs-repl")
 (require 'nodejs-repl)
