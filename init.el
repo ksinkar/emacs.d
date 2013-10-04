@@ -181,7 +181,7 @@
 ;;           (lambda ()
 ;;             (slime-js-minor-mode 1)))
 
-for javascript REPL
+;; for javascript REPL
 (require 'js-comint)
 (setq inferior-js-program-command "/usr/bin/rhino")
 (add-hook 'js2-mode-hook '(lambda () 
