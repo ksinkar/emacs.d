@@ -158,12 +158,21 @@
 	     (setq indent-tabs-mode nil)
 	     (define-key haml-mode-map "\C-m" 'newline-and-indent)))
 
+;; slime settings for exterior LISP dev
+;; (add-to-list 'load-path "~/.emacs.d/plugins/lisp/slime")
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
+(require 'slime)
+(slime-setup '(slime-fancy))
+
+;; turning on scheme mode for scheme files
+(add-to-list 'auto-mode-alist '("\\.scheme" . scheme-mode))
+
 ;; for scala mode
-;; (add-to-list 'load-path "~/.emacs.d/scala-mode")
+;; (add-to-list 'load-path "~/.emacs.d/plugins/scala/scala-mode")
 (require 'scala-mode-auto)
 
 ;; for sbt mode
-;; (add-to-list 'load-path "~/.emacs.d/plugins/ensime/elisp")
+;; (add-to-list 'load-path "~/.emacs.d/plugins/scala/ensime/elisp")
 (require 'ensime)
 (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
