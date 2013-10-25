@@ -19,3 +19,6 @@
 [submodule "plugins/ecmascript/nodejs-repl"]
 	path = plugins/ecmascript/nodejs-repl
 	url = git@github.com:abicky/nodejs-repl.el.git
+[submodule "plugins/lisp/paredit"]
+	path = plugins/lisp/paredit
+	url = http://mumble.net/~campbell/git/paredit.git/
