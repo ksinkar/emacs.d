@@ -70,8 +70,8 @@
 (put 'scroll-left 'disabled nil)
 
 ;(global-linum-mode 1)           ;; enabling seeing line numbers in the l.h.s. buffer margin
-
-(set-default-font "-unknown-Ubuntu Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") ;; setting the default font to ubuntu mono
+(set-default-font "-unknown-Monaco-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") ;; setting the default font to monaco
+;;(set-default-font "-unknown-Ubuntu Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") ;; setting the default font to ubuntu mono
 
 ;; loading the emacs load path from where the extension libraries are loaded
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
