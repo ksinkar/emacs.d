@@ -15,9 +15,11 @@
 
 
 (load "server")
+(defvar emacs-numeric-version (string-to-number (nth 2 (split-string (version)))))
 (unless (server-running-p) (server-start))
 ;; redefining emacs keybindings to generic keyboard shortcuts
-(cua-mode) ;; C-c and C-x are for copying and pasting if a  region has been selected other-wise they perform the normal emacs functions
+(cua-mode 1) ;; C-c and C-x are for copying and pasting if a  region has been selected other-wise they perform the normal emacs functions
+(global-visual-line-mode 1)                             ;; enabling word wrapping 
 (global-set-key (kbd "C-l") 'goto-line)			;; for going to line number
 (global-set-key (kbd "C-s") 'save-buffer)		;; for saving a buffer
 (global-set-key (kbd "C-f") 'isearch-forward)	        ;; for finding in a buffer
@@ -58,16 +60,20 @@
 		  (indent-region (region-beginning) (region-end) nil))))))
 
 ;; splitting windows
-(global-set-key (kbd "C-|") 'split-window-horizontally)		;; for splitting a window horizontally
-(global-set-key (kbd "C--") 'split-window-vertically)		;; for splitting a window vertically
+(global-set-key (kbd "C-x |") 'split-window-horizontally)		;; for splitting a window horizontally
+(global-set-key (kbd "C-x _") 'split-window-vertically)		;; for splitting a window vertically
 
-(ido-mode)			;; enabling listing of file names
-(show-paren-mode)		;; enabling highlighting of parenthesis
+(ido-mode 1)			;; enabling listing of file names
+(show-paren-mode 1)		;; enabling highlighting of parenthesis
 (desktop-save-mode 1)		;; enabling desktop save mode
 (tool-bar-mode 0)		;; disabling the toolbar
 (scroll-bar-mode 0)		;; disabling the scrollbar
 (put 'upcase-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
+
+;; ERC (Emacs iRC) settings
+(setq erc-log-channels-directory (expand-file-name "~/logs/"))
+(setq erc-save-buffer-on-part t)
 
 ;(global-linum-mode 1)           ;; enabling seeing line numbers in the l.h.s. buffer margin
 (set-default-font "-unknown-Monaco-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") ;; setting the default font to monaco
@@ -82,13 +88,24 @@
    (normal-top-level-add-subdirs-to-load-path))
 
 ;; color-themes
-(require 'color-theme)
-(color-theme-initialize)	;; initializing color themes
-(color-theme-midnight)		;; using the midnight color theme
+(if (< emacs-numeric-version 24)
+    (progn 
+      (require 'color-theme)
+      (color-theme-initialize)	        ;; initializing color themes
+      (color-theme-midnight)		;; using the midnight color theme
+      )
+  (load-theme 'manoj-dark t)
+  )
 
 ;; golden-ratio
 (require 'golden-ratio)
 (global-set-key (kbd "<f8>") 'golden-ratio)
+
+;; yasnippet
+(if (> emacs-numeric-version 24)
+    (progn
+      (require 'yasnippet)
+      (yas-global-mode 1)))
 
 ;; auto-suggestions as we type
 (require 'auto-complete-config)
@@ -96,8 +113,13 @@
 (ac-config-default)
 
 ;; simulating the electric-pair-mode, auto parenthesis
-(require 'autopair)
-(autopair-global-mode)                                     ;; enable autopair in all buffers
+(if (< emacs-numeric-version 24)
+    (progn
+      (require 'autopair)
+      (autopair-global-mode)                                     ;; enable autopair in all buffers
+      )
+  (electric-pair-mode 1)
+  )
 
 ;; Planning and Organization
 (diary)				;; enabling diary mode
@@ -181,8 +203,10 @@
 (require 'json-mode)
 
 ;; js2-mode
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(if (< emacs-numeric-version 24)
+    (progn
+      (autoload 'js2-mode "js2-mode" nil t)
+      (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
 
 ;; for swank-js mode
 ;; (global-set-key [f5] 'slime-js-reload)
